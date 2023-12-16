@@ -1,0 +1,39 @@
+version: '3'
+services:
+  client:
+    container_name: client
+    hostname: client
+    build:
+      context: ./rschir10-client
+    ports:
+      - "50050:50050"
+    depends_on:
+      - book
+      - product
+    networks:
+      - network
+
+  product:
+    container_name: product
+    hostname: product
+    build:
+      context: ./rschir10-product-server
+    ports:
+      - "50051:50051"
+    networks:
+      - network
+
+
+  book:
+    container_name: book
+    hostname: book
+    build:
+      context: ./rschir10-book-server
+    ports:
+      - "50052:50052"
+    networks:
+      - network
+
+networks:
+  network:
+    driver: 'bridge'
